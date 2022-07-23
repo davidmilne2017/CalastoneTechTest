@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace TextFilter.Common.Interfaces.Services
+﻿namespace TextFilter.Common.Interfaces.Services
 {
-    internal interface ITextFilter
+    public interface ITextFilter
     {
+        public string FilterText(string text);
     }
 }

@@ -1,5 +1,5 @@
 ﻿using TextFilter.Common.Extensions;
-using TextFilter.Common.Interfaces.Services;
+using TextFilter.Common.Interfaces.Services.Strategies;
 
 namespace TextFilter.Services.Services.Strategies
 {

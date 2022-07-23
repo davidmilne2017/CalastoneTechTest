@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace TextFilter.Services.Tests.Services
 {
-    internal class TextFilterService
+    public class TextFilterService
     {
     }
 }
