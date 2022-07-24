@@ -27,9 +27,17 @@ namespace TextFilter.Infrastructure.FileRepositories
                     throw new ArgumentException(Constants.FileNotFoundError, nameof(path));
 
                 using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-                using var sr = new StreamReader(fs, Encoding.UTF8);
+                using var bs = new BufferedStream(fs);
+                using var sr = new StreamReader(bs, Encoding.UTF8);
 
-                content = await sr.ReadToEndAsync();
+                var builder = new StringBuilder();
+                var line = "";
+                while ((line = await sr.ReadLineAsync()) != null)
+                {
+                    builder.AppendLine(line);
+                }
+
+                content = builder.ToString();
             }
             catch (Exception ex)
             {
