@@ -4,20 +4,20 @@ namespace TextFilter.Common.Tests.Extensions
 {
     public class StringExtensionsTests
     {
-        public const string TestText = @"Hello, I'm a developer writing a technical test, Does my string-split work as expected? Let's find out.
-
-Success?
-
-or Failure!";
 
         [Fact]
         public void StringToWords_SplitsCorrectly()
         {
             //Arrange
-            var expected = new string[] { "Hello", "I", "m", "a", "developer", "writing", "a", "technical", "test", "Does", "my", "string", "split", "work", "as", "expected", "Let","s", "find", "out", "Success", "or", "Failure" };
+            var testText = @"Hello, I'm a 'developer writing- a technical test, Does my string-split work as expected? Let's find out.
+
+Success?
+
+or Failure!";
+            var expected = new string[] { "Hello", "I'm", "a", "developer", "writing", "a", "technical", "test", "Does", "my", "string-split", "work", "as", "expected", "Let's", "find", "out", "Success", "or", "Failure" };
 
             //Act
-            var result = TestText.StringToWords().ToArray();
+            var result = testText.StringToWords().ToArray();
 
             //Assert
             result.Should().BeEquivalentTo(expected);

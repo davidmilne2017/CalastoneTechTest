@@ -3,8 +3,10 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using TextFilter.Common.Interfaces.FileRepositories;
 using TextFilter.Common.Interfaces.Services;
+using TextFilter.Common.Interfaces.Services.Outputters;
 using TextFilter.Common.Interfaces.Services.Strategies;
 using TextFilter.Infrastructure.FileRepositories;
+using TextFilter.Services.Services.Outputters;
 using TextFilter.Services.Services.Strategies;
 
 namespace CalastoneTechTest
@@ -23,6 +25,7 @@ namespace CalastoneTechTest
                    .AddTransient<ITextFilterStrategy, FilterWordsLessThanThree>()
                    .AddTransient<ITextFilterStrategy, FilterWordsWithT>()
                    .AddTransient<ITextFilter, TextFilter.Services.Services.TextFilter>()
+                   .AddTransient<IOutputter, ConsoleOutputter>()
                    )
                .ConfigureLogging((_, logging) =>
                {
