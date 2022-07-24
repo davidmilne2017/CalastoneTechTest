@@ -9,8 +9,8 @@ namespace TextFilter.Common.Extensions
             //splits on non-chars with the exception of ' and - which can occur in the middle of words
             //hence extra logic to remove any leading or trailing ' and -
             return text.Split(" \t\r\n\x85\xA0.,;:!?()".ToCharArray(), StringSplitOptions.RemoveEmptyEntries)
-                .Select(w => w.Length > 1 && (w[0] == '\'' || w[0] == '-') ? w.Substring(1, w.Length - 1) : w)
-                .Select(w => w.Length > 1 && (w[^1] == '\'' || w[^1] == '-') ? w.Substring(0, w.Length - 1) : w)
+                .Select(w => w.Length > 1 && (w[0] == '\'' || w[0] == '-') ? w[1..] : w)
+                .Select(w => w.Length > 1 && (w[^1] == '\'' || w[^1] == '-') ? w[..^1] : w)
                 .ToArray();
         }
 
