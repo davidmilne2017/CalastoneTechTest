@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Microsoft.Extensions.Logging;
 using TextFilter.Services.Services.Strategies;
 
 namespace TextFilter.Services.Tests.Services.Strategies
@@ -14,7 +10,8 @@ namespace TextFilter.Services.Tests.Services.Strategies
         public void FilterWordsLessThanThree_ReturnsCorrectly()
         {
             //Arrange
-            var sut = new FilterWordsLessThanThree();
+            var loggerMock = new Mock<ILogger<FilterWordsLessThanThree>>();
+            var sut = new FilterWordsLessThanThree(loggerMock.Object);
             var text = "down to a tee";
             var exp = "down tee";
 

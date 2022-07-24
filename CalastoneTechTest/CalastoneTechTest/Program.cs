@@ -38,7 +38,7 @@ namespace CalastoneTechTest
             using IServiceScope serviceScope = host.Services.CreateScope();
             IServiceProvider provider = serviceScope.ServiceProvider;
             var textFilter = provider.GetRequiredService<ITextFilter>();
-            Console.WriteLine(textFilter.FilterText(fileName).GetAwaiter().GetResult());
+            textFilter.FilterText(fileName).GetAwaiter().GetResult();
         }
 
         static void UnhandledExceptionTrapper(object sender, UnhandledExceptionEventArgs e)

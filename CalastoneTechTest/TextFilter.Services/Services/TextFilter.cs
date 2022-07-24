@@ -1,5 +1,6 @@
 ﻿using TextFilter.Common.Interfaces.FileRepositories;
 using TextFilter.Common.Interfaces.Services;
+using TextFilter.Common.Interfaces.Services.Outputters;
 using TextFilter.Common.Interfaces.Services.Strategies;
 
 namespace TextFilter.Services.Services
@@ -9,16 +10,17 @@ namespace TextFilter.Services.Services
 
         private readonly IFileReader _fileReader;
         private readonly IEnumerable<ITextFilterStrategy> _strategies;
+        private readonly IOutputter _outputter;
 
-        public TextFilter(IEnumerable<ITextFilterStrategy> strategies, IFileReader fileReader)
+        public TextFilter(IEnumerable<ITextFilterStrategy> strategies, IFileReader fileReader, IOutputter outputter)
         {
             _strategies = strategies;
             _fileReader = fileReader;
+            _outputter = outputter;
         }
 
-        public async Task<string> FilterText(string filename)
+        public async Task FilterText(string filename)
         {
-
             var text = "";
             if (string.IsNullOrEmpty(filename))
                 text = _fileReader.GetDefaultText();
@@ -28,7 +30,7 @@ namespace TextFilter.Services.Services
             foreach (var strategy in _strategies)
                 text = strategy.FilterText(text);
 
-            return text;
+            _outputter.OutputText(text);
         }
     }
 }

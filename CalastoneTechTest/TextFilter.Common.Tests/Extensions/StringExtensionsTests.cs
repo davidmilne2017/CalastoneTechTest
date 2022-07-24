@@ -14,7 +14,7 @@ or Failure!";
         public void StringToWords_SplitsCorrectly()
         {
             //Arrange
-            var expected = new string[] { "Hello", "I'm", "a", "developer", "writing", "a", "technical", "test", "Does", "my", "string", "split", "work", "as", "expected", "Let's", "find", "out", "Success", "or", "Failure" };
+            var expected = new string[] { "Hello", "I", "m", "a", "developer", "writing", "a", "technical", "test", "Does", "my", "string", "split", "work", "as", "expected", "Let","s", "find", "out", "Success", "or", "Failure" };
 
             //Act
             var result = TestText.StringToWords().ToArray();

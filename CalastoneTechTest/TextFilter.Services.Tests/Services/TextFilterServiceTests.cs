@@ -1,4 +1,5 @@
 ﻿using TextFilter.Common.Interfaces.FileRepositories;
+using TextFilter.Common.Interfaces.Services.Outputters;
 using TextFilter.Common.Interfaces.Services.Strategies;
 
 namespace TextFilter.Services.Tests.Services
@@ -13,19 +14,17 @@ namespace TextFilter.Services.Tests.Services
             var fileReaderMock = new Mock<IFileReader>();
             var strategyMock = new Mock<ITextFilterStrategy>();
             var strategies = new[] { strategyMock.Object, strategyMock.Object };
-            var sut = new TextFilter.Services.Services.TextFilter(strategies, fileReaderMock.Object);
+            var outputterMock = new Mock<IOutputter>();
+            var sut = new TextFilter.Services.Services.TextFilter(strategies, fileReaderMock.Object, outputterMock.Object);
             
-            var exp = "result";
-            strategyMock.Setup(x => x.FilterText(It.IsAny<string>())).Returns(exp);
-
             //Act
-            var result = await sut.FilterText("");
+            await sut.FilterText("");
 
             //Assert
-            result.Should().Be(exp);
             fileReaderMock.Verify(x => x.ReadFileAsync(It.IsAny<string>()), Times.Never);
             fileReaderMock.Verify(x => x.GetDefaultText(), Times.Once);
             strategyMock.Verify(x => x.FilterText(It.IsAny<string>()), Times.Exactly(strategies.Length));
+            outputterMock.Verify(x => x.OutputText(It.IsAny<string>()), Times.Once);
 
         }
 
@@ -37,20 +36,19 @@ namespace TextFilter.Services.Tests.Services
             var fileReaderMock = new Mock<IFileReader>();
             var strategyMock = new Mock<ITextFilterStrategy>();
             var strategies = new[] { strategyMock.Object, strategyMock.Object };
-            var sut = new TextFilter.Services.Services.TextFilter(strategies, fileReaderMock.Object);
+            var outputterMock = new Mock<IOutputter>();
+            var sut = new TextFilter.Services.Services.TextFilter(strategies, fileReaderMock.Object, outputterMock.Object);
 
             var filename = "fileName";
-            var exp = "result";
-            strategyMock.Setup(x => x.FilterText(It.IsAny<string>())).Returns(exp);
-
+            
             //Act
-            var result = await sut.FilterText(filename);
+            await sut.FilterText(filename);
 
             //Assert
-            result.Should().Be(exp);
             fileReaderMock.Verify(x => x.ReadFileAsync(filename), Times.Once);
             fileReaderMock.Verify(x => x.GetDefaultText(), Times.Never);
             strategyMock.Verify(x => x.FilterText(It.IsAny<string>()), Times.Exactly(strategies.Length));
+            outputterMock.Verify(x => x.OutputText(It.IsAny<string>()), Times.Once);
 
         }
     }

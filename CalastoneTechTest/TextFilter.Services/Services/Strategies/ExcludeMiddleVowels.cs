@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using TextFilter.Common;
 using TextFilter.Common.Extensions;
 using TextFilter.Common.Interfaces.Services.Strategies;
 
@@ -16,7 +17,6 @@ namespace TextFilter.Services.Services.Strategies
 
         public string FilterText(string text)
         {
-
             try
             {
                 var vowels = new List<string> { "a", "e", "i", "o", "u" };
@@ -32,12 +32,10 @@ namespace TextFilter.Services.Services.Strategies
             }
             catch(Exception ex)
             {
-                _logger.LogWarning("");
+                _logger.LogWarning(ex, Constants.MiddleVowelError);
             }
 
             return text;
-            
-            
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using TextFilter.Services.Services.Strategies;
+﻿using Microsoft.Extensions.Logging;
+using TextFilter.Services.Services.Strategies;
 
 namespace TextFilter.Services.Tests.Services.Strategies
 {
@@ -11,7 +12,8 @@ namespace TextFilter.Services.Tests.Services.Strategies
         public void ExcludeMiddleVowels_ExcludesWordsCorrectly(string text, string exp)
         {
             //Arrange
-            var sut = new ExcludeMiddleVowels();
+            var loggerMock = new Mock<ILogger<ExcludeMiddleVowels>>();
+            var sut = new ExcludeMiddleVowels(loggerMock.Object);
 
             //Act
             var result = sut.FilterText(text);

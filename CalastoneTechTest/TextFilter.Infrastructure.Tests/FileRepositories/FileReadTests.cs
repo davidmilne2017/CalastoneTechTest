@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
+using TextFilter.Common;
 using TextFilter.Infrastructure.FileRepositories;
 
 namespace TextFilter.Infrastructure.Tests.FileRepositories
@@ -19,7 +20,7 @@ namespace TextFilter.Infrastructure.Tests.FileRepositories
 
             //Act/Assert
             var ex = await Assert.ThrowsAsync<ArgumentException>(async () => await sut.ReadFileAsync(path));
-            ex.Message.Should().Be(string.Format(FilePathError, FileReader.NoPathProvidedError));
+            ex.Message.Should().Be(string.Format(FilePathError, Constants.NoPathProvidedError));
 
         }
     }
