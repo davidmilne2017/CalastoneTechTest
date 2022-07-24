@@ -6,7 +6,7 @@ namespace TextFilter.Common.Extensions
     {
         public static string[] StringToWords(this string text)
         {
-            return text.Split(" \t\r\n\x85\xA0.,;:!?()-\"".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
+            return text.Split(" \t\r\n\x85\xA0.,;:!?()-'".ToCharArray(), StringSplitOptions.RemoveEmptyEntries);
         }
 
         public static string MiddleLetters(this string word)
@@ -17,6 +17,11 @@ namespace TextFilter.Common.Extensions
         public static string CleanSpaces(this string text)
         {
             return Regex.Replace(text, @"\s+", " ").Trim();
+        }
+
+        public static string RemoveWord(this string text, string word)
+        {
+            return Regex.Replace(text, $@"(?<![a-zA-Z0-9]){word}(?![a-zA-Z0-9])", "");
         }
 
     }

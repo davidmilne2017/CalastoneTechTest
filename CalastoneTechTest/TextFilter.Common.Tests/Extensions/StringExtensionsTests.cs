@@ -39,7 +39,7 @@ or Failure!";
         [Fact]
         public void CleanSpaces_ReturnsCorrectly()
         {
-            //Act
+            //Arrange
             var text = " hello     goodbye ";
             var exp = "hello goodbye";
 
@@ -48,6 +48,23 @@ or Failure!";
 
             //Assert
             result.Should().Be(exp);
+        }
+
+        [Fact]
+        public void ReplaceWord_ReplacesCorrectly()
+        {
+            //Arrange
+            var text = @"it, written. It
+smitten it.";
+            var exp = @", written. It
+smitten .";
+
+            //Act
+            var result = text.RemoveWord("it");
+
+            //Assert
+            result.Should().Be(exp);
+
         }
     }
 }

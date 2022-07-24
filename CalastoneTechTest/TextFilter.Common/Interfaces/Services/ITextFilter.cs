@@ -2,6 +2,6 @@
 {
     public interface ITextFilter
     {
-        public string FilterText(string text);
+        public Task<string> FilterText(string fileName);
     }
 }

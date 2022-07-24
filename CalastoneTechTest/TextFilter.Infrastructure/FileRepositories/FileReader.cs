@@ -21,19 +21,34 @@ namespace TextFilter.Infrastructure.FileRepositories
         {
 
             //ToDo see if we can implement FileInfo
+            var content = "";
+            try
+            {
+                if (string.IsNullOrEmpty(path))
+                    throw new ArgumentException(nameof(path), NoPathProvidedError);
 
-            if (string.IsNullOrEmpty(path))
-                throw new ArgumentException(nameof(path), NoPathProvidedError);
+                if (!File.Exists(path))
+                    throw new ArgumentException(nameof(path), FileNotFoundError);
 
-            if (!File.Exists(path))
-                throw new ArgumentException(nameof(path), FileNotFoundError);
+                using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
+                using var sr = new StreamReader(fs, Encoding.UTF8);
 
-            using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
-            using var sr = new StreamReader(fs, Encoding.UTF8);
-
-            var content = await sr.ReadToEndAsync();
+                content = await sr.ReadToEndAsync();
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.ToString());
+                throw;
+            }
 
             return content;
+
+
+        }
+
+        public string GetDefaultText()
+        {
+            return DefaultText.Alice;
         }
     }
 }

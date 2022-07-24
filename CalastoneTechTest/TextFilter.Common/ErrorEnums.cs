@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace TextFilter.Services.Tests.Services
+namespace TextFilter.Common
 {
-    public class TextFilterService
+    public enum ErrorEnums
     {
+        
     }
 }

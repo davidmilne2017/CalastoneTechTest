@@ -11,7 +11,7 @@ namespace TextFilter.Services.Services.Strategies
             foreach (var word in words)
             {
                 if (word.ToLower().Contains('t'))
-                    text = text.Replace(word, "");
+                    text = text.RemoveWord(word);
             }
 
             return text.CleanSpaces();
