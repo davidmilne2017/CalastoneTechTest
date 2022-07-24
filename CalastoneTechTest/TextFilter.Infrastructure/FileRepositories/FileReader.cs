@@ -21,10 +21,10 @@ namespace TextFilter.Infrastructure.FileRepositories
             try
             {
                 if (string.IsNullOrEmpty(path))
-                    throw new ArgumentException(nameof(path), Constants.NoPathProvidedError);
+                    throw new ArgumentException(Constants.NoPathProvidedError, nameof(path));
 
                 if (!File.Exists(path))
-                    throw new ArgumentException(nameof(path), Constants.FileNotFoundError);
+                    throw new ArgumentException(Constants.FileNotFoundError, nameof(path));
 
                 using var fs = new FileStream(path, FileMode.Open, FileAccess.Read);
                 using var sr = new StreamReader(fs, Encoding.UTF8);
